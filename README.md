@@ -1,1 +1,20 @@
 # test_rgit
+Sub RemoveDups()
+        Dim ws As Worksheet
+        Dim col As Range
+        Dim IsSheetEmpty As Boolean
+
+        IsSheetEmpty = False
+
+        For Each ws In ActiveWorkbook.Sheets
+                IsSheetEmpty = ws.UsedRange.Rows.Count = 1 _
+                        And ws.UsedRange.Columns.Count = 1 _
+                        And ws.Cells(1, 1).Value = ""
+                If IsSheetEmpty = False Then
+                        For Each col In ws.UsedRange.Columns
+                                ws.Range(col.Address).RemoveDuplicates Columns:=1, Header:=xlNo
+                        Next col
+                End If
+        Next ws
+
+End Sub
